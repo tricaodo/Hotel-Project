@@ -1,7 +1,24 @@
 <% include partials/header %>
-<form action="/hotels" method="POST">
-    <input type="text" class="form-control" name="name" placeholder="name">
-    <input type="text" class="form-control" name="url" placeholder="image url">
-    <button>Submit</button>
-</form>
+<div class="container">
+    <div class="row">
+        <div style="text-align: center; width: 30%; margin: 25px auto">
+            <h2>Add A New Room</h3>
+            <form action="/" method="POST">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="url" placeholder="image url">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-md btn-primary btn-block">Submit</button>
+                </div>    
+                <div class="form-group">
+                    <a href="/" class="btn btn-md btn-default btn-block">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <% include partials/footer %>

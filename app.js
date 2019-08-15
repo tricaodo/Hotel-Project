@@ -1,33 +1,51 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+
+const Room = require('./models/room');
+
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
-const hotels = 
-[
-    {name: 'Salmon Creek', image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80'},
-    {name: 'Granite Hill', image: 'https://images.unsplash.com/photo-1531835551805-16d864c8d311?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80'},
-    {name: 'Mountain Rest', image: 'https://wshr.global.ssl.fastly.net/CrsMedia/P13763/rm/RD_102_Wynn_Deluxe_Panorama_Room_Barbara_Kraft.jpg?tag=n_2_tile'},
-    {name: 'Yosemite', image: 'https://www.theritzlondon.com/wp-content/uploads/2016/10/superior-king.jpg'},
-]
-
 
 app.set('view engine', 'ejs');
 
-app.get('/hotels', (req, res) => {
-    res.render('hotels', {hotels: hotels});
+app.get('/', (req, res) => {
+    Room.find({}, (error, rooms) => {
+        if(error){
+            console.log('Error from fetching hotels: ' + error);
+        }else{
+            res.render('rooms', {hotels: rooms});
+        }
+    })
 })
 
-app.post('/hotels', (req, res) => {
+app.post('/', (req, res) => {
     const name = req.body.name;
     const url = req.body.url;
     const newHotel = {name: name, image: url};
-    hotels.push(newHotel);
-    res.redirect('/hotels');
+    Room.create(newHotel, (error, data) => {
+        if(error){
+            console.log('Error from creating room: ' + error);
+        }else{
+            console.log('Added room successfully');
+        }
+    });
+    res.redirect('/');
 })
 
-app.get('/hotels/new', (req, res) => {
+app.get('/rooms/new', (req, res) => {
     res.render('new');
+})
+
+app.get('/rooms/:id', (req, res) => {
+    const id = req.params.id;
+    Room.findById(id, (error, room) => {
+        if(error){
+            console.log('Error from getting room id: ' + error);
+        }else{
+            res.render('room', {room: room});
+        }
+    })
 })
 
 app.listen(3000, (error) => {
