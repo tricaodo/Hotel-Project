@@ -1,0 +1,11 @@
+<% include ../partials/header %>
+<h2><%= room.name %></h3>
+<img src="<%= room.image %>" alt="">
+<p><%= room.desc %></p>
+
+<% room.comments.forEach(function (comment){ %>
+    <p>
+        <strong><%= comment.author %></strong>: <%= comment.content %>
+    </p>
+<% }); %>
+<% include ../partials/footer %>
