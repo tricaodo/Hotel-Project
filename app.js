@@ -63,7 +63,7 @@ app.get('/rooms/:id', (req, res) => {
 // ======================
 
 app.get('/rooms/:id/comments/new', (req, res) => {
-    Room.findById(req.params.id, (error, room) => {
+    Room.findById(req.params.id).populate('comments').exec((error, room) => {
         if(error){
             console.log('Error from loading the roomID for comment: ' + error);
         }else{

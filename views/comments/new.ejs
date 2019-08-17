@@ -5,7 +5,7 @@
             <h2>Add A New Comment For <%= room.name %></h3>
             <form action="/rooms/<%= room._id %>/comments/" method="POST">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="author" placeholder="Author">
+                    <input type="text" class="form-control" name="author" placeholder="<%= room.comments[0].author %>" disabled>
                 </div>
 
                 <div class="form-group">
@@ -15,7 +15,7 @@
                     <button class="btn btn-md btn-primary btn-block">Submit</button>
                 </div>    
                 <div class="form-group">
-                    <a href="/" class="btn btn-md btn-default btn-block">Back</a>
+                    <a href="/rooms/<%= room._id %>/" class="btn btn-md btn-default btn-block">Back</a>
                 </div>
             </form>
         </div>
