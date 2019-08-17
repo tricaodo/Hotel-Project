@@ -5,11 +5,11 @@
             <h2>Add A New Comment For <%= room.name %></h3>
             <form action="/rooms/<%= room._id %>/comments/" method="POST">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="author" placeholder="<%= room.comments[0].author %>" disabled>
+                    <input type="text" class="form-control" name="author" placeholder="<%= room.comments[0].author %>">
                 </div>
 
                 <div class="form-group">
-                    <textarea class="form-control" name="comment" rows="5" placeholder="Comment"></textarea> 
+                    <textarea class="form-control" name="content" rows="5" placeholder="Comment"></textarea> 
                 </div>
                 <div class="form-group">
                     <button class="btn btn-md btn-primary btn-block">Submit</button>
