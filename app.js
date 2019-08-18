@@ -1,14 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const localStrategy = require('passport-local');
 
 mongoose.connect('mongodb://localhost/hotels', {useNewUrlParser: true});
 
 const Room = require('./models/room');
 const Comment = require('./models/comment');
+const User = require('./models/user');
 const seedDB = require('./seeds');
 
 const app = express();
+app.use(require('express-session')({
+    secret: 'my name is tri do',
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
@@ -58,7 +71,7 @@ app.get('/rooms/:id', (req, res) => {
 })
 
 // ======================
-// COMMENTS ROUTES
+//    COMMENTS ROUTES
 // ======================
 
 app.get('/rooms/:id/comments/new', (req, res) => {
@@ -93,6 +106,41 @@ app.post('/rooms/:id/comments', (req, res) => {
     })
 });
 
+//=======================
+//         USER
+//=======================
+
+app.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
+app.post('/signup', (req, res) => {
+    User.register({username: req.body.username}, req.body.password, (error, user) => {
+        if(error){
+            console.log('Error from Sign Up: ' + error);
+            return res.redirect('/');
+        }
+        passport.authenticate('local')(req, res, () => {
+            res.redirect('/');
+        })
+    });
+});
+
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/signup'
+}), (req, res) => {
+    
+});
+
+app.get('/logout', (req, res) => {
+
+});
+
 app.listen(3000, (error) => {
     if(error){
         console.log('Error: ' + error);
@@ -100,3 +148,10 @@ app.listen(3000, (error) => {
         console.log('Server has started...');
     }
 });
+
+function isLoggedIn(req, res, next){
+    if(req.authenticate()){
+        return next();
+    }
+    res.redirect('/login');
+}

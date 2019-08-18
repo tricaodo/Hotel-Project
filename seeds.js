@@ -21,13 +21,13 @@ const rooms = [
     }
 ]
 function seedDB(){
-    Room.remove({}, (error) => {
+    Room.deleteMany({}, (error) => {
         if(error){
             console.log('Error from delete rooms: ' + error);
         }
     });
 
-    Comment.remove({}, (error) => {
+    Comment.deleteMany({}, (error) => {
         if(error){
             console.log('Error from delete comments: ' + error);
         }
