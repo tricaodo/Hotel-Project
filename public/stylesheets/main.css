@@ -1,0 +1,11 @@
+#show-image {
+    padding: 0px;
+}
+
+#show-image img{
+    width: 100%;
+}
+
+.thumbnail .caption-full{
+    padding: 10px;
+}
