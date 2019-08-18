@@ -7,12 +7,38 @@ img:hover{
     }
 </style>
 <div class="container">
-    <div class="jumbotron">
+    <!-- <div class="jumbotron">
         <h1>Welcome to our hotel</h1>
         <p>
             <a href="/rooms/new" class="btn btn-success">Add A New Room</a>
         </p>
+    </div> -->
+
+<!-- Jumbotron -->
+<div class="jumbotron text-center">
+
+        <!-- Title -->
+      
+        <!-- Card image -->
+        <div class="container">
+        <div class="view overlay my-4">
+          <img src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" class="img-fluid" alt="" width="100%">
+          <a href="#">
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+      
+        <h4 class="card-title h4 pb-2"><strong>My adventure</strong></h4>
+      
+        <p class="card-text">Spending your good time with us...</p>
+        <p>
+                <a href="/rooms/new" class="btn btn-success">Add A New Room</a>
+            </p>
+      
+      </div>
     </div>
+      <!-- Jumbotron -->
+
     
     <div class="row">
         <% hotels.forEach(hotel => { %>

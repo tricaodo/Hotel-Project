@@ -9,3 +9,9 @@
 .thumbnail .caption-full{
     padding: 10px;
 }
+
+.jumbotron {
+    min-height: 0px;
+    min-width: 0px;
+
+}
