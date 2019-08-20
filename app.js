@@ -1,8 +1,9 @@
-const express       = require('express');
-const bodyParser    = require('body-parser');
-const mongoose      = require('mongoose');
-const passport      = require('passport');
-const localStrategy = require('passport-local');
+const express        = require('express');
+const bodyParser     = require('body-parser');
+const methodOverride = require('method-override');
+const mongoose       = require('mongoose');
+const passport       = require('passport');
+const localStrategy  = require('passport-local');
 
 mongoose.connect('mongodb://localhost/hotels', {useNewUrlParser: true});
 const User    = require('./models/user');
@@ -31,13 +32,14 @@ app.use((req, res, next) => {
 });
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
+app.use(methodOverride('_method'));
 
 app.use(roomRoute);
 app.use(authRoute);
 app.use(commentRoute);
 
 app.set('view engine', 'ejs');
-seedDB();
+// seedDB();
 
 app.listen(3000, (error) => {
     if(error){

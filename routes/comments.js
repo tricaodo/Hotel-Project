@@ -16,15 +16,20 @@ router.get('/rooms/:id/comments/new', isLoggedIn, (req, res) => {
 
 router.post('/rooms/:id/comments', isLoggedIn, (req, res) => {
     const roomID = req.params.id;
-    const newComment = {author: req.body.author, content: req.body.content};
     Room.findById(roomID, (error, room) => {
         if(error){
             console.log('Error from finding roomID: ' + error)
         }else{
-            Comment.create(newComment, (error, comment) => {
+            Comment.create(
+                {
+                    content: req.body.content
+                }, (error, comment) => {
                 if(error){
                     console.log('Error from adding new comment: ' + error);
                 }else{
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;
+                    comment.save();
                     room.comments.push(comment._id);
                     room.save();
                     console.log('Added comment successfully');

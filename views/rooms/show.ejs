@@ -19,6 +19,8 @@
                             <h4 class="pull-right">$9.00</h4>
                             <h4><a href="#"><%= room.name %></a></h4>
                             <p><%= room.desc %></p>
+                            <h5 class="text-right"><em>Written by</em>: <%= room.author.username %></h5>
+                            <a href="/rooms/<%= room._id %>/edit">Edit Room</a>
                         </div>
                     </div>
                 </div>
@@ -33,7 +35,7 @@
                         <% room.comments.forEach(function (comment){ %>
                         <div class="row">
                             <div class="col-md-12">
-                                <strong><%= comment.author %></strong>
+                                <strong><%= comment.author.username %></strong>
                                 <span class="pull-right">10 days ago</span>
                                 <p><%= comment.content %></p>
                             </div>

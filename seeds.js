@@ -33,24 +33,24 @@ function seedDB(){
         }
     });
     
-    rooms.forEach((seed) => {
-        Room.create(seed, (error, room) => {
-            if(error){
-                console.log('Error from creating room: ' + error);
-            }else{
-                console.log('Added room successfully');
-                Comment.create({author: 'Homer', content: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.'}, (error, dataComment) => {
-                    if(error){
-                        console.log('Error from creating comments');
-                    }else{
-                        room.comments.push(dataComment);
-                        room.save();
-                        console.log('Added comment successfully');
-                    }
-                })
-            }
-        })
-    })
+    // rooms.forEach((seed) => {
+    //     Room.create(seed, (error, room) => {
+    //         if(error){
+    //             console.log('Error from creating room: ' + error);
+    //         }else{
+    //             console.log('Added room successfully');
+    //             Comment.create({author: 'Homer', content: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.'}, (error, dataComment) => {
+    //                 if(error){
+    //                     console.log('Error from creating comments');
+    //                 }else{
+    //                     room.comments.push(dataComment);
+    //                     room.save();
+    //                     console.log('Added comment successfully');
+    //                 }
+    //             })
+    //         }
+    //     })
+    // })
 }
 
 module.exports = seedDB;

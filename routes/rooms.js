@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/', isLoggedIn, (req, res) => {
+router.post('/rooms/new', isLoggedIn, (req, res) => {
     const name = req.body.name;
     const url = req.body.url;
     const desc = req.body.desc
@@ -20,6 +20,9 @@ router.post('/', isLoggedIn, (req, res) => {
         if(error){
             console.log('Error from creating room: ' + error);
         }else{
+            data.author.id = req.user._id;
+            data.author.username = req.user.username;
+            data.save();
             console.log('Added room successfully');
         }
     });
@@ -40,6 +43,27 @@ router.get('/rooms/:id', (req, res) => {
         }
     })
 })
+
+router.get('/rooms/:id/edit', (req, res) => {
+    Room.findById(req.params.id, (error, room) => {
+        if(error){
+            console.log('Error from editing room: ' + error);
+        }else{
+            res.render('rooms/edit', {room: room});
+        }
+    });
+})
+
+router.put('/rooms/:id', (req, res) => {
+    Room.findByIdAndUpdate(req.params.id, req.body.room, {useFindAndModify: false},(error, room) => {
+        if(error){
+            console.log('Error from updating room: ' + error);
+        }else{
+            res.redirect(/rooms/ + room._id);
+        }
+    })
+})
+
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
