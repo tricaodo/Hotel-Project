@@ -64,6 +64,16 @@ router.put('/rooms/:id', (req, res) => {
     })
 })
 
+router.delete('/rooms/:id', (req, res) => {
+    Room.findByIdAndDelete(req.params.id, {useFindAndModify: false}, (error) => {
+        if(error){
+            console.log('Error from deleting room: ' + error);
+        }else{
+            res.redirect('/');
+        }
+    })
+})
+
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
