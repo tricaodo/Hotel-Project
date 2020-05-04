@@ -1,7 +1,6 @@
 # Hotel-Project
 This application is booking hotel. It was built mainly in NodeJS accompanying with many different library such as Express, Mongoose, etc.
-This booking application allows customer to book the room that that desire. They also can rate the reviews and also see others'
-review. 
+This booking application allows customer to book the room that that desire. They also can rate the reviews and also see others'review. 
 
 Here is the basic functionalities:
   - Login, Sign up
